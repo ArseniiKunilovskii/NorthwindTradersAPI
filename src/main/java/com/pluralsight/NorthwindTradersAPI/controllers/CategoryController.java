@@ -1,42 +1,50 @@
 package com.pluralsight.NorthwindTradersAPI.controllers;
 
 
+import com.pluralsight.NorthwindTradersAPI.dao.implementaion.JDBCCategoryDAO;
+import com.pluralsight.NorthwindTradersAPI.dao.implementaion.JDBCProductDAO;
 import com.pluralsight.NorthwindTradersAPI.dao.interfaces.ICategoryDAO;
 import com.pluralsight.NorthwindTradersAPI.models.Product;
 import com.pluralsight.NorthwindTradersAPI.models.Category;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class CategoryController implements ICategoryDAO {
-    private List<Category> categories;
+    private final ICategoryDAO categoryDAO;
 
-    public CategoryController(){
-        categories = new ArrayList<>();
-
-        categories.add(new Category(1,"Beverages"));
-        categories.add(new Category(2,"Wine"));
-
+    public CategoryController(ICategoryDAO categoryDAO){
+        this.categoryDAO = categoryDAO;
     }
 
     @RequestMapping(path = "/category", method = RequestMethod.GET)
     public List<Category> getAllCategories(){
-        return categories;
+        return categoryDAO.getAllCategories();
     }
 
     @RequestMapping(path = "/category/{categoryId}", method = RequestMethod.GET)
     public Category getCategoryById(@PathVariable int categoryId){
-        for (Category category:categories){
-            if(category.getCategoryId() == categoryId){
-                return category;
-            }
-        }
-        return null;
+       return categoryDAO.getCategoryById(categoryId);
+    }
+
+    @RequestMapping(path = "/category", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public Category add(Category category) {
+        return categoryDAO.add(category);
+    }
+
+    @RequestMapping(path = "/category/{categoryId}", method = RequestMethod.PUT)
+    public void update(@PathVariable int categoryId, @RequestBody Category category){
+        categoryDAO.update(categoryId, category);
+    }
+
+    @RequestMapping(path = "/category/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable int id){
+        categoryDAO.delete(id);
     }
 
 }

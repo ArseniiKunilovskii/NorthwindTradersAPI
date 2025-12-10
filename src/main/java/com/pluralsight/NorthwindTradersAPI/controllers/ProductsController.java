@@ -3,40 +3,44 @@ package com.pluralsight.NorthwindTradersAPI.controllers;
 
 import com.pluralsight.NorthwindTradersAPI.dao.interfaces.IProductDAO;
 import com.pluralsight.NorthwindTradersAPI.models.Product;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class ProductsController implements IProductDAO {
-    private List<Product> products;
+public class ProductsController{
+    private final IProductDAO productDAO;
 
-    public ProductsController(){
-        products = new ArrayList<>();
-
-        products.add(new Product(1,"Pepsi",1,2.5));
-        products.add(new Product(2,"Coke",1,2.5));
-        products.add(new Product(3,"Red Wine",2,6));
-        products.add(new Product(4,"White Wine",2,6));
+    public ProductsController(IProductDAO productDAO){
+    this.productDAO = productDAO;
     }
 
     @RequestMapping(path = "/products", method = RequestMethod.GET)
     public List<Product> getProducts(){
-        return products;
+        return productDAO.getProducts();
     }
 
     @RequestMapping(path = "/products/{productId}", method = RequestMethod.GET)
     public Product getProductById(@PathVariable int productId){
-        for (Product product:products){
-            if(product.getProductId() == productId){
-                return product;
-            }
-        }
-        return null;
+       return  productDAO.getProductById(productId);
+    }
+
+    @RequestMapping(path = "/products", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public Product addProduct(@RequestBody Product product){
+        return productDAO.add(product);
+    }
+
+    @RequestMapping(path = "/products/{productId}", method = RequestMethod.PUT)
+    public void update(@PathVariable int productId, @RequestBody Product product){
+        productDAO.update(productId, product);
+    }
+
+    @RequestMapping(path = "/produts/{id}", method = RequestMethod.DELETE)
+    public void update(@PathVariable int id){
+        productDAO.delete(id);
     }
 
 }

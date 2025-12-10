@@ -13,6 +13,15 @@ public class Product {
         this.unitPrice = unitPrice;
     }
 
+    public Product() {
+    }
+
+    public Product(String productName, int categoryId, double unitPrice) {
+        this.productName = productName;
+        this.categoryId = categoryId;
+        this.unitPrice = unitPrice;
+    }
+
     public int getProductId() {
         return productId;
     }

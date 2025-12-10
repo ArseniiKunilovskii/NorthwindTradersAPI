@@ -17,7 +17,7 @@ public class DataBaseConfig {
     }
     public DataBaseConfig(@Value("${datasource.url}") String url,
                           @Value("${datasource.username}") String username,
-                          @Value("${database.password}") String password){
+                          @Value("${datasource.password}") String password){
         basicDataSource = new BasicDataSource();
         basicDataSource.setUrl(url);
         basicDataSource.setUsername(username);
