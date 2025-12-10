@@ -23,12 +23,12 @@ public class CategoryController {
 
     }
 
-    @RequestMapping(path = "/products", method = RequestMethod.GET)
+    @RequestMapping(path = "/category", method = RequestMethod.GET)
     public List<Category> getProducts(){
         return categories;
     }
 
-    @RequestMapping(path = "/products/{productId}", method = RequestMethod.GET)
+    @RequestMapping(path = "/category/{categoryId}", method = RequestMethod.GET)
     public Category getCategoryById(@PathVariable int categoryId){
         for (Category category:categories){
             if(category.getCategoryId() == categoryId){

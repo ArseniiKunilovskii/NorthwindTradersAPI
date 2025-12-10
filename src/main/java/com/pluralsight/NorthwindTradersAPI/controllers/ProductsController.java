@@ -18,9 +18,9 @@ public class ProductsController {
         products = new ArrayList<>();
 
         products.add(new Product(1,"Pepsi",1,2.5));
-        products.add(new Product(1,"Coke",1,2.5));
-        products.add(new Product(1,"Red Wine",2,6));
-        products.add(new Product(1,"White Wine",2,6));
+        products.add(new Product(2,"Coke",1,2.5));
+        products.add(new Product(3,"Red Wine",2,6));
+        products.add(new Product(4,"White Wine",2,6));
     }
 
     @RequestMapping(path = "/products", method = RequestMethod.GET)
