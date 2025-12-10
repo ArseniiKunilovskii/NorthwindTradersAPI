@@ -1,6 +1,7 @@
 package com.pluralsight.NorthwindTradersAPI.controllers;
 
 
+import com.pluralsight.NorthwindTradersAPI.dao.interfaces.IProductDAO;
 import com.pluralsight.NorthwindTradersAPI.models.Product;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class ProductsController {
+public class ProductsController implements IProductDAO {
     private List<Product> products;
 
     public ProductsController(){

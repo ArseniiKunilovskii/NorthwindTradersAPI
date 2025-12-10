@@ -1,6 +1,7 @@
 package com.pluralsight.NorthwindTradersAPI.controllers;
 
 
+import com.pluralsight.NorthwindTradersAPI.dao.interfaces.ICategoryDAO;
 import com.pluralsight.NorthwindTradersAPI.models.Product;
 import com.pluralsight.NorthwindTradersAPI.models.Category;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class CategoryController {
+public class CategoryController implements ICategoryDAO {
     private List<Category> categories;
 
     public CategoryController(){
@@ -24,7 +25,7 @@ public class CategoryController {
     }
 
     @RequestMapping(path = "/category", method = RequestMethod.GET)
-    public List<Category> getProducts(){
+    public List<Category> getAllCategories(){
         return categories;
     }
 
