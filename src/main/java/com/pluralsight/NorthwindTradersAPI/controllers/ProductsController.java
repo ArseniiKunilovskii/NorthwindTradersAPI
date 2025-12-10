@@ -38,7 +38,7 @@ public class ProductsController{
         productDAO.update(productId, product);
     }
 
-    @RequestMapping(path = "/produts/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/products/{id}", method = RequestMethod.DELETE)
     public void update(@PathVariable int id){
         productDAO.delete(id);
     }

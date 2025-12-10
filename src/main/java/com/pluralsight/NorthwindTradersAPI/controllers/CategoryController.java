@@ -43,6 +43,7 @@ public class CategoryController implements ICategoryDAO {
     }
 
     @RequestMapping(path = "/category/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id){
         categoryDAO.delete(id);
     }
